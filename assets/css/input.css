@@ -1,0 +1,23 @@
+@import "tailwindcss";
+
+/* .dataTables_filter input {
+  @apply px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500;
+}
+
+.dataTables_paginate .paginate_button {
+  @apply px-3 py-1 text-sm font-medium text-blue-600 bg-white border rounded-lg hover:bg-blue-600 hover:text-white transition-colors;
+}
+.dataTables_paginate .paginate_button.current {
+  @apply bg-blue-600 text-white;
+}
+.dataTables_paginate .paginate_button:hover {
+  @apply bg-blue-600 text-white;
+}
+
+.dataTables_info {
+  @apply text-sm text-gray-600 mt-2;
+}
+
+.dataTables_length select {
+  @apply px-3 py-2 border rounded-lg text-sm focus:ring-2 focus:ring-blue-500;
+} */
