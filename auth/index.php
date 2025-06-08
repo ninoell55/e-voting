@@ -17,85 +17,111 @@ if (isset($_SESSION['login_admin'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LOGIN</title>
     <link href="<?= $base_url ?>assets/css/output.css" rel="stylesheet">
+    <script src="<?= $base_url ?>assets/js/lucide.min.js"></script>
+
+    <link rel="stylesheet" href="<?= $base_url ?>assets/css/animate.min.css" />
+
+    <style>
+        .video-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+        }
+    </style>
 </head>
 
-<body class="bg-gradient-to-br from-indigo-50 to-white min-h-screen flex flex-col">
+<body class="flex flex-col min-h-screen font-sans bg-gradient-to-br from-indigo-100 to-white">
 
-    <!-- Header dengan Logo -->
-    <header class="bg-indigo-500 text-white p-6 shadow-md">
-        <div class="container mx-auto text-center">
-            <img src="../assets/img/logo_smk.png" alt="Logo Sekolah" class="mx-auto w-20 h-20 mb-3" />
-            <h1 class="text-3xl md:text-4xl font-bold">Sistem E-Voting Sekolah</h1>
-            <p class="text-sm md:text-base mt-2">Mudah, Aman, dan Transparan untuk Pemilihan Ketua OSIS, Kelas, dan Jurusan</p>
+    <!-- Video Latar Belakang -->
+    <video class="video-bg" autoplay muted loop>
+        <source src="<?= $base_url ?>assets/pictures/login.mp4" type="video/mp4" />
+        Browser Anda tidak mendukung tag video.
+    </video>
+
+    <!-- Header -->
+    <header class="py-8 text-white shadow-lg bg-indigo-500/50">
+        <div class="container px-4 mx-auto text-center">
+            <img src="<?= $base_url ?>/assets/pictures/logo_smk.png" alt="Logo Sekolah" class="animate__animated animate__fadeInDown w-20 h-20 mx-auto mb-4 drop-shadow-md" />
+            <h1 class="animate__animated animate__fadeInDown text-3xl font-bold tracking-wide md:text-4xl">Sistem E-Voting Sekolah</h1>
+            <p class="animate__animated animate__tada mt-2 text-sm md:text-base opacity-90">Mudah, Aman, dan Transparan untuk Pemilihan Ketua OSIS, Kelas, dan Jurusan</p>
         </div>
     </header>
 
-    <!-- Main Content -->
-    <main class="flex-grow flex items-center justify-center px-4 py-12">
-        <div class="max-w-4xl w-full bg-white rounded-2xl shadow-lg p-8 text-center">
+    <!-- Konten Utama -->
+    <main class="flex items-center justify-center flex-grow px-4 py-16">
+        <div class="w-full max-w-5xl p-10 transition-all shadow-xl bg-white/50 rounded-3xl md:p-14">
 
-            <h2 class="text-2xl font-semibold text-indigo-700 mb-4">Tentang Sistem</h2>
-            <p class="text-gray-700 mb-6 text-sm md:text-base">
-                Website ini dirancang untuk mempermudah proses pemilihan di lingkungan sekolah secara elektronik. Setiap siswa atau guru bisa memberikan suara secara digital dengan mudah dan aman.
+            <!-- Tentang Sistem -->
+            <h2 class="animate__animated animate__jello mb-6 text-2xl font-bold text-center text-indigo-700 md:text-3xl">Tentang Sistem</h2>
+            <p class="animate__animated animate__flipInX max-w-2xl mx-auto mb-10 text-base font-semibold text-center text-gray-700 md:text-lg">
+                Website ini dirancang untuk mempermudah proses pemilihan di lingkungan sekolah secara elektronik.
+                Setiap siswa atau guru dapat memberikan suara secara digital dengan mudah, aman, dan hanya satu kali.
             </p>
 
-            <!-- Fitur Unggulan Grid -->
-            <!-- Fitur Unggulan Cards -->
-            <div class="mb-8">
-                <h3 class="text-lg font-medium text-gray-800 mb-6">Fitur Unggulan:</h3>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
-
-                    <!-- Card 1 -->
-                    <div class="bg-blue-50 border border-blue-100 p-5 rounded-xl shadow-sm hover:shadow-md transition">
-                        <div class="text-3xl mb-2">🔐</div>
-                        <h4 class="text-md font-semibold text-blue-800 mb-1">Login Aman</h4>
+            <!-- Fitur Unggulan -->
+            <h3 class="animate__animated animate__lightSpeedInLeft mb-4 text-lg font-semibold text-gray-800">Fitur Unggulan:</h3>
+            <div class="grid grid-cols-1 gap-6 mb-10 md:grid-cols-2">
+                <!-- Fitur 1 -->
+                <div class="animate__animated animate__slideInLeft flex items-start gap-4 p-5 transition border border-indigo-100 shadow bg-indigo-50 rounded-2xl hover:shadow-md">
+                    <i data-lucide="lock" class="w-6 h-6 mt-1 text-indigo-600"></i>
+                    <div>
+                        <h4 class="font-semibold text-indigo-700 text-md">Login Aman</h4>
                         <p class="text-sm text-gray-600">Sistem login terpisah antara Admin dan Pemilih dengan validasi ketat.</p>
                     </div>
-
-                    <!-- Card 2 -->
-                    <div class="bg-green-50 border border-green-100 p-5 rounded-xl shadow-sm hover:shadow-md transition">
-                        <div class="text-3xl mb-2">🗳️</div>
-                        <h4 class="text-md font-semibold text-green-800 mb-1">Voting Sekali Saja</h4>
+                </div>
+                <!-- Fitur 2 -->
+                <div class="animate__animated animate__slideInRight flex items-start gap-4 p-5 transition border border-green-100 shadow bg-green-50 rounded-2xl hover:shadow-md">
+                    <i data-lucide="check-circle" class="w-6 h-6 mt-1 text-green-600"></i>
+                    <div>
+                        <h4 class="font-semibold text-green-700 text-md">Voting Sekali Saja</h4>
                         <p class="text-sm text-gray-600">Setiap pemilih hanya bisa memberikan suara satu kali, mencegah kecurangan.</p>
                     </div>
-
-                    <!-- Card 3 -->
-                    <div class="bg-yellow-50 border border-yellow-100 p-5 rounded-xl shadow-sm hover:shadow-md transition">
-                        <div class="text-3xl mb-2">📊</div>
-                        <h4 class="text-md font-semibold text-yellow-800 mb-1">Hasil Real-Time</h4>
+                </div>
+                <!-- Fitur 3 -->
+                <div class="animate__animated animate__slideInLeft flex items-start gap-4 p-5 transition border border-yellow-100 shadow bg-yellow-50 rounded-2xl hover:shadow-md">
+                    <i data-lucide="bar-chart-3" class="w-6 h-6 mt-1 text-yellow-600"></i>
+                    <div>
+                        <h4 class="font-semibold text-yellow-700 text-md">Hasil Real-Time</h4>
                         <p class="text-sm text-gray-600">Hasil pemilihan langsung terhitung otomatis dan bisa dilihat setelah voting selesai.</p>
                     </div>
-
-                    <!-- Card 4 -->
-                    <div class="bg-purple-50 border border-purple-100 p-5 rounded-xl shadow-sm hover:shadow-md transition">
-                        <div class="text-3xl mb-2">📄</div>
-                        <h4 class="text-md font-semibold text-purple-800 mb-1">Laporan Otomatis</h4>
-                        <p class="text-sm text-gray-600">Laporan hasil pemilihan dapat dicetak sebagai arsip dalam bentuk PDF atau Excel.</p>
+                </div>
+                <!-- Fitur 4 -->
+                <div class="animate__animated animate__slideInRight flex items-start gap-4 p-5 transition border border-purple-100 shadow bg-purple-50 rounded-2xl hover:shadow-md">
+                    <i data-lucide="file-text" class="w-6 h-6 mt-1 text-purple-600"></i>
+                    <div>
+                        <h4 class="font-semibold text-purple-700 text-md">Riwayat Voting</h4>
+                        <p class="text-sm text-gray-600">Pemilih dapat melihat riwayat pemilihan sebelumnya sebagai bukti keikutsertaan.</p>
                     </div>
-
                 </div>
             </div>
 
             <!-- Tombol Login -->
-            <div class="flex flex-col md:flex-row justify-center gap-4 mt-6">
-                <a href="login_admin.php">
-                    <button class="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-3 rounded-lg w-full md:w-auto transition">
-                        Login Admin
-                    </button>
+            <div class="flex flex-col items-center justify-center gap-5 sm:flex-row">
+                <a href="login_admin.php"
+                    class="animate__animated animate__fadeInLeft animate__slow flex items-center justify-center w-full gap-2 px-6 py-3 text-sm font-semibold text-center text-white transition bg-indigo-600 shadow-md hover:bg-indigo-700 rounded-xl sm:w-auto">
+                    <i data-lucide="shield"></i> Login sebagai Admin
                 </a>
-                <a href="login_user.php">
-                    <button class="bg-pink-600 hover:bg-pink-700 text-white px-6 py-3 rounded-lg w-full md:w-auto transition">
-                        Login Pemilih
-                    </button>
+                <a href="login_user.php"
+                    class="animate__animated animate__fadeInRight animate__slow flex items-center justify-center w-full gap-2 px-6 py-3 text-sm font-semibold text-center text-white transition bg-pink-600 shadow-md hover:bg-pink-700 rounded-xl sm:w-auto">
+                    <i data-lucide="user"></i> Login sebagai Pemilih
                 </a>
             </div>
         </div>
     </main>
 
     <!-- Footer -->
-    <footer class="bg-indigo-100 text-center text-gray-600 text-sm py-4">
-        &copy; <?= date('Y'); ?> E-Voting Sekolah | Dikembangkan oleh Tim RPL
+    <footer class="animate__animated animate__fadeIn py-4 text-sm text-center text-gray-600 shadow-inner bg-indigo-100/50">
+        &copy; <?= date('Y'); ?> E-Voting Sekolah | Dikembangkan oleh 3 orang siswa kelas X-PPLG 2 SMKN 1 Cirebon
     </footer>
+
+    <!-- Lucide Icon -->
+    <script>
+        lucide.createIcons();
+    </script>
 </body>
 
 </html>

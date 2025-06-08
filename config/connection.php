@@ -17,8 +17,12 @@ if (!$conn) {
 function query($query)
 {
     global $conn;
-
     $result = mysqli_query($conn, $query);
+
+    if (!$result) {
+        die("Query error: " . mysqli_error($conn)); // tampilkan error MySQL
+    }
+
     $rows = [];
     while ($row = mysqli_fetch_assoc($result)) {
         $rows[] = $row;
@@ -27,6 +31,60 @@ function query($query)
     return $rows;
 }
 // SELECT DATA >>>
+
+
+
+// <<< FUNCTION ADMIN-start
+// Add
+function addAdmin($data)
+{
+    global $conn;
+
+    $username = htmlspecialchars($data["username"]);
+    $password = htmlspecialchars($data["password"]);
+    $role = htmlspecialchars($data["role"]);
+
+    $query = "INSERT INTO admin
+                VALUES
+                    ('', '$username', '$password', '$role')
+            ";
+    mysqli_query($conn, $query);
+
+    return mysqli_affected_rows($conn);
+}
+
+
+// Update
+function updateAdmin($data)
+{
+    global $conn;
+
+    $id_admin = $data["id_admin"];
+    $username = htmlspecialchars($data["username"]);
+    $password = htmlspecialchars($data["password"]);
+    $role = htmlspecialchars($data["role"]);
+
+    $query = "UPDATE admin SET
+                username = '$username',
+                password = '$password',
+                role = '$role'
+            WHERE id_admin = $id_admin
+            ";
+    mysqli_query($conn, $query);
+
+    return (mysqli_affected_rows($conn) >= 0) ? 1 : 0;
+}
+
+
+// Delete
+function deleteAdmin($id_admin)
+{
+    global $conn;
+    mysqli_query($conn, "DELETE FROM admin WHERE id_admin = $id_admin");
+    return mysqli_affected_rows($conn);
+}
+// end-FUNCTION ADMIN >>>
+
 
 
 // <<< FUNCTION PEMILIH-start
@@ -148,21 +206,17 @@ function deleteEvent($id_event)
 }
 
 
-// Status Update
 function updateEventStatus()
 {
     global $conn;
-    $today = date("Y-m-d");
 
-    $query = "UPDATE event
-                SET status = 
-                    CASE
-                        WHEN '$today' BETWEEN tgl_mulai AND tgl_selesai THEN 'aktif'
-                        ELSE 'nonaktif'
-                    END
-              ";
+    // Nonaktifkan event saat ini sudah memasuki tgl_selesai
+    $query = "UPDATE event SET status = 'nonaktif' WHERE tgl_selesai <= CURDATE()";
+    $conn->query($query);
 
-    mysqli_query($conn, $query);
+    // Aktifkan event yang sedang berjalan (optional)
+    $queryAktif = "UPDATE event SET status = 'aktif' WHERE tgl_mulai <= CURDATE() AND tgl_selesai > CURDATE()";
+    $conn->query($queryAktif);
 }
 // end-FUNCTION EVENT >>>
 
@@ -300,9 +354,6 @@ function updateKandidat($data)
 
 
 
-
-
-
 // <<< PESAN SUKSES
 function showSuccessAlert()
 {
@@ -310,25 +361,41 @@ function showSuccessAlert()
 
     $type = $_GET['success'];
     $message = match ($type) {
-        'tambah' => 'berhasil ditambahkan.',
-        'edit' => 'berhasil diedit.',
-        'hapus' => 'berhasil dihapus.',
+        'tambah' => 'Data berhasil ditambahkan!',
+        'edit' => 'Data berhasil diedit!',
+        'hapus' => 'Data berhasil dihapus!',
         default => 'Aksi berhasil dilakukan.'
     };
 
-    $isHapus = ($type === 'hapus');
-    $bgColor = $isHapus ? 'bg-red-100 text-red-700' : 'bg-green-100 text-green-700';
-    $hoverColor = $isHapus ? 'hover:text-red-900' : 'hover:text-green-900';
+    $icon = ($type === 'hapus') ? 'error' : 'success';
 
     echo "
-        <div id='alert-box' class='$bgColor p-4 rounded mb-4 flex justify-between items-center'>
-            <span>$message</span>
-            <button onclick=\"document.getElementById('alert-box').style.display='none'\"
-                class='text-xl font-bold px-2 leading-none $hoverColor'>&times;</button>
-        </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            Swal.fire({
+                title: '$message',
+                icon: '$icon',
+                confirmButtonText: 'OK'
+            }).then(() => {
+                Swal.fire({
+                    toast: true,
+                    position: 'bottom-end',
+                    icon: '$icon',
+                    title: '$message',
+                    showConfirmButton: false,
+                    timer: 3000,
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                        toast.addEventListener('mouseenter', Swal.stopTimer)
+                        toast.addEventListener('mouseleave', Swal.resumeTimer)
+                    }
+                });
+            });
+        });
+    </script>
     ";
 }
-// PESAN SUKSES >>>
+
 
 
 

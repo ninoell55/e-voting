@@ -1,17 +1,16 @@
 <?php
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
 require '../../../config/connection.php';
+$pageTitle = "Edit Kandidat";
 
 $id = $_GET['id'];
 $kandidat = query("SELECT * FROM kandidat WHERE id_kandidat = $id")[0];
 
 // ambil data event untuk dropdown
-$events = query("SELECT * FROM event");
+$events = query("SELECT * FROM event WHERE status = 'aktif' OR id_event = {$kandidat['id_event']}");
 
 if (isset($_POST['submit'])) {
     if (updateKandidat($_POST) > 0) {
-        header("Location: daftar_kandidat.php?id_event={$_POST['id_event']}");
+        header("Location: daftar_kandidat.php?success=edit");
         exit;
     } else {
         $error = "Gagal memperbarui data.";
@@ -22,8 +21,18 @@ include '../../../includes/header.php';
 include '../../../includes/sidebar.php';
 ?>
 
-<main class="flex-1 p-6 mt-16 md:ml-64 bg-gray-50 min-h-screen">
-    <h2 class="text-2xl font-bold mb-6">Edit Kandidat</h2>
+<main id="mainContent" class="flex-1 bg-gray-100 p-6 mt-16 transition-all duration-300 ml-64">
+
+    <div class="mb-6">
+        <nav class="text-gray-500 text-sm mb-1">
+            <ol class="list-reset flex">
+                <li><a href="#" class="text-blue-600 hover:underline">Pages</a></li>
+                <li><span class="mx-2">/</span></li>
+                <li class="text-gray-800"><?= $pageTitle ?></li>
+            </ol>
+        </nav>
+        <h1 class="text-2xl font-bold text-gray-800"><?= $pageTitle ?></h1>
+    </div>
 
     <?php if (!empty($error)): ?>
         <div id="alert-box" class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-6" role="alert">
@@ -41,8 +50,9 @@ include '../../../includes/sidebar.php';
             <label for="id_event" class="block text-sm font-medium text-gray-700 mb-1">Pilih Event</label>
             <select name="id_event" id="id_event" required class="w-full border border-gray-300 rounded px-3 py-2">
                 <?php foreach ($events as $event) : ?>
-                    <option value="<?= $event['id_event']; ?>" <?= $event['id_event'] == $kandidat['id_event'] ? 'selected' : ''; ?>>
-                        <?= $event['nama_event']; ?>
+                    <option value="<?= $event['id_event']; ?>"
+                        <?= $event['id_event'] == $kandidat['id_event'] ? 'selected' : ''; ?>>
+                        <?= $event['nama_event']; ?><?= $event['status'] != 'aktif' ? ' (nonaktif)' : ''; ?>
                     </option>
                 <?php endforeach; ?>
             </select>
@@ -89,8 +99,6 @@ include '../../../includes/sidebar.php';
                 </div>
             </div>
         </div>
-
-
 
         <div>
             <button type="submit" name="submit"

@@ -5,5 +5,5 @@ $_SESSION = [];
 session_unset();
 session_destroy();
 
-header("Location: login_user.php");
+header("Location: login_user.php?logout=success");
 exit;

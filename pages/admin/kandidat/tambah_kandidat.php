@@ -2,11 +2,11 @@
 require_once '../../../config/connection.php';
 $pageTitle = "Tambah Kandidat";
 
-$events = query("SELECT * FROM event");
+$events = query("SELECT * FROM event WHERE status = 'aktif'");
 
 if (isset($_POST["submit"])) {
     if (addKandidat($_POST) > 0) {
-        header("Location: daftar_kandidat.php?id=" . $_POST["id_event"]);
+        header("Location: daftar_kandidat.php?success=tambah");
         exit;
     } else {
         $error = true;
@@ -17,10 +17,20 @@ include '../../../includes/header.php';
 include '../../../includes/sidebar.php';
 ?>
 
-<main class="flex-1 p-6 mt-16 md:ml-64 bg-gray-50 min-h-screen">
-    <div class="max-w-xl bg-white p-6 rounded-xl shadow">
-        <h1 class="text-2xl font-bold mb-4 text-gray-800">Tambah Kandidat</h1>
+<main id="mainContent" class="flex-1 bg-gray-100 p-6 mt-16 transition-all duration-300 ml-64">
 
+    <div class="mb-6">
+        <nav class="text-gray-500 text-sm mb-1">
+            <ol class="list-reset flex">
+                <li><a href="#" class="text-blue-600 hover:underline">Pages</a></li>
+                <li><span class="mx-2">/</span></li>
+                <li class="text-gray-800"><?= $pageTitle ?></li>
+            </ol>
+        </nav>
+        <h1 class="text-2xl font-bold text-gray-800"><?= $pageTitle ?></h1>
+    </div>
+
+    <div class="max-w-xl bg-white p-6 rounded-xl shadow">
         <?php if (!empty($error)): ?>
             <div id="alert-box" class="bg-red-100 text-red-700 p-4 rounded mb-4 flex justify-between items-center">
                 <span>Gagal menambahkan kandidat. Silakan cek kembali.</span>
@@ -99,28 +109,11 @@ include '../../../includes/sidebar.php';
             reader.onload = function(e) {
                 const img = document.getElementById('preview-image');
                 img.src = e.target.result;
-                img.classList.remove('hidden');
+                img.classList.remove('hidden'); // Tampilkan gambar
             };
             reader.readAsDataURL(file);
         }
     }
-
-
-    function previewFile(input) {
-        const file = input.files[0];
-        const fileName = file ? file.name : 'Belum ada file yang dipilih';
-        document.getElementById('nama-file').textContent = fileName;
-
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                document.getElementById('preview-image').src = e.target.result;
-            };
-            reader.readAsDataURL(file);
-        }
-    }  
 </script>
-
-
 
 <?php include '../../../includes/footer.php'; ?>

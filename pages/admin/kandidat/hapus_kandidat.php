@@ -17,6 +17,5 @@ mysqli_query($conn, "DELETE FROM kandidat WHERE id_kandidat = $id");
 
 // redirect kembali ke daftar kandidat
 echo "<script>
-        alert('Kandidat berhasil dihapus!');
-        window.location.href = 'daftar_kandidat.php?id=$id_event';
+        window.location.href = 'daftar_kandidat.php?success=hapus';
       </script>";
