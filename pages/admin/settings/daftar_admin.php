@@ -2,6 +2,12 @@
 require_once '../../../config/connection.php';
 $pageTitle = "Admin";
 
+// Cek login session admin
+if (!isset($_SESSION['login_admin'])) {
+    header("Location: ../../../auth/login_admin.php");
+    exit;
+}
+
 $admin = query("SELECT * FROM admin ORDER BY id_admin DESC");
 
 include '../../../includes/header.php';

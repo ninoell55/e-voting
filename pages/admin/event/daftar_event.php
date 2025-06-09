@@ -2,6 +2,12 @@
 require_once '../../../config/connection.php';
 $pageTitle = "Event";
 
+// Cek login session admin
+if (!isset($_SESSION['login_admin'])) {
+    header("Location: ../../../auth/login_admin.php");
+    exit;
+}
+
 updateEventStatus();
 
 $event = query("SELECT * FROM event ORDER BY tgl_mulai DESC");

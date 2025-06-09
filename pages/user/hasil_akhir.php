@@ -3,7 +3,7 @@ require_once '../../config/connection.php';
 
 $id_pemilih = $_SESSION['id_pemilih'] ?? null;
 if (!$id_pemilih) {
-    header("Location: login.php");
+    header("Location: ../../auth/login_user.php");
     exit;
 }
 

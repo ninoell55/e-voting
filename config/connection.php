@@ -364,10 +364,12 @@ function showSuccessAlert()
         'tambah' => 'Data berhasil ditambahkan!',
         'edit' => 'Data berhasil diedit!',
         'hapus' => 'Data berhasil dihapus!',
+        'invalid' => 'Something wrong...  !',
+        'error' => 'Error! Pages not found.',
         default => 'Aksi berhasil dilakukan.'
     };
 
-    $icon = ($type === 'hapus') ? 'error' : 'success';
+    $icon = ($type === 'hapus' || $type === 'invalid' || $type === 'error') ? 'error' : 'success';
 
     echo "
     <script>
@@ -376,6 +378,8 @@ function showSuccessAlert()
                 title: '$message',
                 icon: '$icon',
                 confirmButtonText: 'OK'
+            }).then(() => {
+                window.history.replaceState(null, null, window.location.pathname);
             }).then(() => {
                 Swal.fire({
                     toast: true,

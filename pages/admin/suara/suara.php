@@ -2,6 +2,12 @@
 require_once '../../../config/connection.php';
 $pageTitle = "Statistik Suara";
 
+// Cek login session admin
+if (!isset($_SESSION['login_admin'])) {
+    header("Location: ../../../auth/login_admin.php");
+    exit;
+}
+
 // Mendapatkan event_id yang dipilih
 $selectedEventId = $_GET['event_id'] ?? null;
 

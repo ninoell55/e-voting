@@ -1,8 +1,22 @@
 <?php
 require_once '../../../config/connection.php';
 
+// Cek login session admin
+if (!isset($_SESSION['login_admin'])) {
+    header("Location: ../../../auth/login_admin.php");
+    exit;
+}
+
 $id = $_GET['id'];
+if (!isset($id) || !is_numeric($id)) {
+    header("Location: daftar_kandidat.php?success=invalid");
+    exit;
+}
 $id_event = $_GET['id_event'];
+if (!isset($id_event) || !is_numeric($id_event)) {
+    header("Location: daftar_kandidat.php?success=invalid");
+    exit;
+}
 
 // ambil data kandidat untuk mengetahui nama file gambar
 $kandidat = query("SELECT * FROM kandidat WHERE id_kandidat = $id")[0];

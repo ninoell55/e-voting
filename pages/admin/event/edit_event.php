@@ -2,7 +2,19 @@
 require_once '../../../config/connection.php';
 $pageTitle = "Edit Event";
 
+// Cek login session admin
+if (!isset($_SESSION['login_admin'])) {
+    header("Location: ../../../auth/login_admin.php");
+    exit;
+}
+
 $id_event = $_GET["id"];
+
+if (!isset($id_event) || !is_numeric($id_event)) {
+    header("Location: daftar_event.php?success=invalid");
+    exit;
+}
+
 $event = query("SELECT * FROM event WHERE id_event = $id_event")[0];
 
 if (isset($_POST["submit"])) {

@@ -2,11 +2,25 @@
 require_once '../../../config/connection.php';
 $pageTitle = "Detail Kandidat";
 
+// Cek login session admin
+if (!isset($_SESSION['login_admin'])) {
+    header("Location: ../../../auth/login_admin.php");
+    exit;
+}
+
 // Ambil detail kandidat berdasarkan ID
 $id_kandidat = $_GET['id'];
+if (!isset($id_kandidat) || !is_numeric($id_kandidat)) {
+    header("Location: daftar_kandidat.php?success=invalid");
+    exit;
+}
 $kandidat = query("SELECT * FROM kandidat WHERE id_kandidat = $id_kandidat")[0];
 
 $id_event = $kandidat['id_event'];
+if (!isset($id_event) || !is_numeric($id_event)) {
+    header("Location: daftar_kandidat.php?success=invalid");
+    exit;
+}
 $event = query("SELECT * FROM event WHERE id_event = $id_event")[0];
 
 // Hitung jumlah suara yang diterima kandidat ini

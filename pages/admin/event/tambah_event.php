@@ -2,6 +2,12 @@
 require_once '../../../config/connection.php';
 $pageTitle = "Tambah Event";
 
+// Cek login session admin
+if (!isset($_SESSION['login_admin'])) {
+    header("Location: ../../../auth/login_admin.php");
+    exit;
+}
+
 if (isset($_POST["submit"])) {
     if (addEvent($_POST) > 0) {
         header("Location: daftar_event.php?success=tambah");
@@ -27,7 +33,7 @@ include '../../../includes/sidebar.php';
         </nav>
         <h1 class="text-2xl font-bold text-gray-800"><?= $pageTitle ?></h1>
     </div>
-    
+
     <?php if (!empty($error)): ?>
         <div id="alert-box" class="bg-red-100 text-red-700 p-4 rounded mb-4 flex justify-between items-center">
             <span>Tanggal selesai tidak boleh lebih kecil dari tanggal mulai</span>

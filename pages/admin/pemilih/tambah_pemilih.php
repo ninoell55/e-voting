@@ -2,6 +2,12 @@
 require_once '../../../config/connection.php';
 $pageTitle = "Tambah Pemilih";
 
+// Cek login session admin
+if (!isset($_SESSION['login_admin'])) {
+    header("Location: ../../../auth/login_admin.php");
+    exit;
+}
+
 if (isset($_POST["submit"])) {
     if (addPemilih($_POST) > 0) {
         header("Location: daftar_pemilih.php?success=tambah");

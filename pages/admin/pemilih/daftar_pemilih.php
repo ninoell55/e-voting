@@ -2,6 +2,12 @@
 require_once '../../../config/connection.php';
 $pageTitle = "Pemilih";
 
+// Cek login session admin
+if (!isset($_SESSION['login_admin'])) {
+    header("Location: ../../../auth/login_admin.php");
+    exit;
+}
+
 $pemilih = query("SELECT * FROM pemilih ORDER BY id_pemilih ASC");
 
 include '../../../includes/header.php';

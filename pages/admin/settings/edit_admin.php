@@ -2,7 +2,17 @@
 require_once '../../../config/connection.php';
 $pageTitle = "Edit Admin";
 
+// Cek login session admin
+if (!isset($_SESSION['login_admin'])) {
+    header("Location: ../../../auth/login_admin.php");
+    exit;
+}
+
 $id_admin = $_GET["id"];
+if (!isset($id_admin) || !is_numeric($id_admin)) {
+    header("Location: daftar_admin.php?success=invalid");
+    exit;
+}
 $admin = query("SELECT * FROM admin WHERE id_admin = $id_admin")[0];
 
 if (isset($_POST["submit"])) {

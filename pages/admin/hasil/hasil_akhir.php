@@ -2,6 +2,12 @@
 require_once '../../../config/connection.php';
 $pageTitle = "Hasil Akhir";
 
+// Cek login session admin
+if (!isset($_SESSION['login_admin'])) {
+    header("Location: ../../../auth/login_admin.php");
+    exit;
+}
+
 date_default_timezone_set('Asia/Jakarta');
 $today = date('Y-m-d');
 

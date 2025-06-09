@@ -2,6 +2,12 @@
 require_once '../../../config/connection.php';
 $pageTitle = "Tambah Kandidat";
 
+// Cek login session admin
+if (!isset($_SESSION['login_admin'])) {
+    header("Location: ../../../auth/login_admin.php");
+    exit;
+}
+
 $events = query("SELECT * FROM event WHERE status = 'aktif'");
 
 if (isset($_POST["submit"])) {

@@ -2,7 +2,17 @@
 require_once '../../../config/connection.php';
 $pageTitle = "Edit Pemilih";
 
+// Cek login session admin
+if (!isset($_SESSION['login_admin'])) {
+    header("Location: ../../../auth/login_admin.php");
+    exit;
+}
+
 $id_pemilih = $_GET["id"];
+if (!isset($id_pemilih) || !is_numeric($id_pemilih)) {
+    header("Location: daftar_pemilih.php?success=invalid");
+    exit;
+}
 $pemilih = query("SELECT * FROM pemilih WHERE id_pemilih = $id_pemilih")[0];
 
 if (isset($_POST["submit"])) {

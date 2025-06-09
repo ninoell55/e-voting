@@ -2,6 +2,12 @@
 require_once '../../config/connection.php';
 $pageTitle = "Dashboard";
 
+// Cek login session admin
+if (!isset($_SESSION['login_admin'])) {
+    header("Location: ../../auth/login_admin.php");
+    exit;
+}
+
 updateEventStatus();
 
 $query = "SELECT * FROM event ORDER BY tgl_mulai DESC";
@@ -16,15 +22,6 @@ $query1 = "SELECT k.*,
 
 $kandidat = mysqli_query($conn, $query1);
 $k = mysqli_fetch_assoc($kandidat);
-
-// Cek login session admin
-if (isset($_SESSION['login_user'])) {
-    header("Location: ../user/index.php");
-    exit;
-} elseif (!isset($_SESSION['login_admin'])) {
-    header("Location: ../../auth/login_admin.php");
-    exit;
-}
 
 // Statistik dasar
 $jumlahEvent = mysqli_fetch_assoc(mysqli_query($conn, "SELECT COUNT(*) AS total FROM event"))['total'];
@@ -114,7 +111,7 @@ include '../../includes/header.php';
 include '../../includes/sidebar.php';
 ?>
 
-<main id="mainContent" class="flex-1 bg-gray-100 p-6 mt-16 transition-all duration-300 ml-64">
+<main id="mainContent" class="flex-1 bg-gray-100 p-6 mt-16 transition-all duration-300 ml-64">  
     <div class="mb-6 flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
         <!-- Breadcrumb & Title -->
         <nav class="text-gray-500 text-sm">
