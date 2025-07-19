@@ -1,10 +1,11 @@
 <?php
+session_start();
+
 // Cek login session admin
-if (!isset($_SESSION['login_admin'])) {
+if (!isset($_SESSION['login_user'])) {
     header("Location: ../auth/login_user.php");
     exit;
 }
-session_start();
 
 $_SESSION = [];
 session_unset();

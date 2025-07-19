@@ -1,11 +1,11 @@
 <?php
 session_start();
-$base_url = "/e-voting/";
+$base_url = "/e_voting/";
 
 $host = "localhost";
 $username = "root";
 $password = "";
-$dbname = "e-voting";
+$dbname = "e_voting";
 
 $conn = mysqli_connect($host, $username, $password, $dbname);
 if (!$conn) {
