@@ -403,17 +403,17 @@ function showSuccessAlert()
 
 
 
-// <<< SIDEBAR-isActive
-function isActive($target)
-{
-    $currentFile = basename($_SERVER['PHP_SELF']);
-    $currentUri = $_SERVER['REQUEST_URI'];
+    // <<< SIDEBAR-isActive
+    function isActive($target)
+    {
+        $currentFile = basename($_SERVER['PHP_SELF']);
+        $currentUri = $_SERVER['REQUEST_URI'];
 
 
-    if (strpos($target, '/') !== false) {
-        return strpos($currentUri, $target) !== false;
+        if (strpos($target, '/') !== false) {
+            return strpos($currentUri, $target) !== false;
+        }
+
+        return $currentFile === $target;
     }
-
-    return $currentFile === $target;
-}
-// SIDEBAR-isActive >>>
+    // SIDEBAR-isActive >>>
