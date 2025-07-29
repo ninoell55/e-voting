@@ -111,7 +111,7 @@ include '../../includes/header.php';
 include '../../includes/sidebar.php';
 ?>
 
-<main id="mainContent" class="flex-1 bg-gray-100 p-6 mt-16 transition-all duration-300 ml-64">  
+<main id="mainContent" class="flex-1 bg-gray-100 p-6 mt-16 transition-all duration-300 ml-64">
     <div class="mb-6 flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
         <!-- Breadcrumb & Title -->
         <nav class="text-gray-500 text-sm">
@@ -138,12 +138,17 @@ include '../../includes/sidebar.php';
                     Tampilkan
                 </button>
             </form>
-        <?php else: ?>
+        <?php elseif (count($activeEvents) === 1): ?>
             <div class="flex items-center gap-2 p-3 bg-blue-50 border border-blue-200 text-sm text-blue-800 rounded-lg shadow-sm">
                 <i data-lucide="calendar-check" class="w-5 h-5"></i>
 
                 <span class="font-medium">Event aktif:</span>
                 <a href="event/view_event.php?id=<?= $eventSelected['id_event']; ?>" class="text-blue-900 font-bold"><?= htmlspecialchars($activeEvents[0]['nama_event']) ?></a>
+            </div>
+        <?php else: ?>
+            <div class="p-3 bg-yellow-50 border border-yellow-200 text-sm text-yellow-800 rounded-lg shadow-sm">
+                <i data-lucide="alert-triangle" class="w-5 h-5"></i>
+                <span class="font-medium">Tidak ada event aktif saat ini.</span>
             </div>
         <?php endif; ?>
     </div>
